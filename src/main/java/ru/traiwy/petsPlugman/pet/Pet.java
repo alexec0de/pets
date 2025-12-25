@@ -31,18 +31,18 @@ public abstract class Pet {
     public void follow() {
         if (stand == null || owner == null) return;
 
-        Location playerLoc = owner.getLocation();
+        final Location playerLoc = owner.getLocation();
 
-        Vector forward = playerLoc.getDirection().normalize();
+        final Vector forward = playerLoc.getDirection().normalize();
 
-        Vector side = forward.clone().crossProduct(new Vector(0, 1, 0)).normalize();
+        final Vector side = forward.clone().crossProduct(new Vector(0, 1, 0)).normalize();
 
-        Location target = playerLoc.clone()
+        final Location target = playerLoc.clone()
                 .add(side.multiply(1.2))
                 .add(0, 0.6, 0);
 
-        Location current = stand.getLocation();
-        Vector move = target.toVector().subtract(current.toVector());
+        final Location current = stand.getLocation();
+        final Vector move = target.toVector().subtract(current.toVector());
 
         if (move.length() < 0.1) return;
 
@@ -51,7 +51,7 @@ public abstract class Pet {
             return;
         }
 
-        Location newLoc = current.add(move.multiply(0.2));
+        final Location newLoc = current.add(move.multiply(0.2));
         newLoc.setDirection(playerLoc.getDirection());
 
         stand.teleport(newLoc);
@@ -59,7 +59,6 @@ public abstract class Pet {
 
     public void despawn(){
         if(stand != null && !stand.isDead()) stand.remove();
-
     }
 
 }

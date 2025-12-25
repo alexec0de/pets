@@ -27,7 +27,7 @@ public class PetCommand implements CommandExecutor {
             return true;
         }
 
-        SubCommand cmd = subCommands.get(args[0].toLowerCase());
+        final SubCommand cmd = subCommands.get(args[0].toLowerCase());
         if (cmd == null) {
             player.sendMessage("Неизвестная команда!");
             return true;

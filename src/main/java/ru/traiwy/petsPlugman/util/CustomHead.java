@@ -1,8 +1,9 @@
 package ru.traiwy.petsPlugman.util;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import org.bukkit.inventory.ItemStack;
@@ -15,22 +16,18 @@ import java.util.UUID;
 public class CustomHead {
 
     public ItemStack getCustomHead(String texture){
-        final ItemStack head = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta meta = (SkullMeta) head.getItemMeta();
-
-        GameProfile profile = new GameProfile(UUID.randomUUID(), "zaba");
-        profile.getProperties().put("textures", new Property("textures", texture));
-
-        try {
-            Field profileField = meta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(meta, profile);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        final ItemStack stack = new ItemStack(Material.PLAYER_HEAD, 1);
+        final SkullMeta meta = (SkullMeta) stack.getItemMeta();
+        if (meta != null) {
+            createRandomProfile(meta, texture);
+            stack.setItemMeta(meta);
         }
+        return stack;
+    }
 
-        head.setItemMeta(meta);
-        return head;
+    private void createRandomProfile(SkullMeta skullMeta, String texture) {
+        final PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+        profile.setProperty(new ProfileProperty("textures", texture));
+        skullMeta.setPlayerProfile(profile);
     }
 }

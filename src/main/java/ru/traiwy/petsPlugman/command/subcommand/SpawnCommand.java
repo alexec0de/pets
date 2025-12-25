@@ -24,13 +24,12 @@ public class SpawnCommand implements SubCommand{
 
     @Override
     public void execute(Player player, String[] args) {
-
         if (petService.getPet(player) != null) {
             player.sendMessage("У вас уже есть питомец!");
             return;
         }
 
-        Pet pet = new NormalPet("Pet", List.of("Okak"), 1, player);
+        final Pet pet = new NormalPet("Pet", List.of("Okak"), 1, player);
         petService.spawnPet(pet);
         player.sendMessage("Ваш питомец заспавнен!");
     }

@@ -21,7 +21,7 @@ public class DespawnCommand implements SubCommand{
 
     @Override
     public void execute(Player player, String[] args) {
-        Pet pet = petService.getPet(player);
+        final Pet pet = petService.getPet(player);
         if(pet != null){
             petService.despawnPet(player);
         }
