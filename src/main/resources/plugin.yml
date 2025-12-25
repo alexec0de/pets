@@ -1,0 +1,8 @@
+name: PetsPlugman
+version: '1.0-SNAPSHOT'
+main: ru.traiwy.petsPlugman.PetsPlugman
+api-version: '1.20'
+commands:
+  pet:
+    description: Управление питомцами
+    usage: /pet <subcommand>
